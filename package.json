@@ -1,0 +1,113 @@
+{
+  "name": "monocle-os",
+  "productName": "Monocle OS",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Monocle OS — Orvane Seven LLC. TapRoot-anchored operating system interface.",
+  "author": "Orvane Engineering",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "tsx server.ts",
+    "start": "node dist/server.js",
+    "build": "vite build && esbuild server.ts --bundle --platform=node --outfile=dist/server.js --external:vite --external:express --external:path --external:firebase-admin",
+    "preview": "vite preview",
+    "clean": "rm -rf dist",
+    "lint": "tsc --noEmit",
+    "electron:dev": "npm run build && npx electron .",
+    "electron:build:win": "npm run build && npx electron-builder --win nsis --config.compression=maximum",
+    "electron:build:linux": "npm run build && npx electron-builder --linux AppImage --config.compression=maximum",
+    "electron:build:all": "npm run build && npx electron-builder --linux AppImage --win nsis",
+    "electron:package": "bash releases/BUILD-MONOCLE-OS.sh"
+  },
+  "build": {
+    "appId": "com.orvane.monocle-os",
+    "productName": "Monocle OS",
+    "copyright": "© 2026 Orvane Engineering",
+    "directories": {
+      "buildResources": "electron",
+      "output": "releases/electron"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/main.js",
+      "electron/icon.png"
+    ],
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "icon": "electron/icon.png",
+      "category": "Utility",
+      "description": "Monocle OS — TapRoot-anchored OS interface"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "electron/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "electron/icon.ico",
+      "uninstallerIcon": "electron/icon.ico",
+      "installerHeaderIcon": "electron/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Monocle OS"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "icon": "electron/icon.png",
+      "category": "public.app-category.utilities"
+    }
+  },
+  "dependencies": {
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2",
+    "@google/genai": "^1.29.0",
+    "@react-google-maps/api": "^2.20.8",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.1",
+    "@react-three/rapier": "^2.2.0",
+    "@tailwindcss/vite": "^4.1.14",
+    "@types/three": "^0.184.1",
+    "@vis.gl/react-google-maps": "^1.8.3",
+    "@vitejs/plugin-react": "^5.0.4",
+    "axios": "^1.16.0",
+    "dotenv": "^17.2.3",
+    "esbuild": "^0.28.0",
+    "express": "^4.21.2",
+    "firebase": "^12.12.1",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^0.546.0",
+    "motion": "^12.23.24",
+    "peerjs": "^1.5.5",
+    "react": "^19.0.1",
+    "react-dom": "^19.0.1",
+    "react-router-dom": "^7.15.0",
+    "sonner": "^2.0.7",
+    "three": "^0.184.0",
+    "vite": "^6.2.3",
+    "zustand": "^5.0.13"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.14.0",
+    "autoprefixer": "^10.4.21",
+    "electron": "^41.5.0",
+    "electron-builder": "^26.8.1",
+    "png-to-ico": "^3.0.1",
+    "tailwindcss": "^4.1.14",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.3"
+  }
+}
