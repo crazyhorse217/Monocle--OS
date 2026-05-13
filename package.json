@@ -2,7 +2,7 @@
   "name": "monocle-os",
   "productName": "Monocle OS",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Monocle OS — Orvane Seven LLC. TapRoot-anchored operating system interface.",
   "author": "Orvane Engineering",
   "main": "electron/main.js",
